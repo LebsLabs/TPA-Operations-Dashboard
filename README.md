@@ -6,7 +6,7 @@
 
 ## Overview
 
-The CEO Operations Dashboard is a prototype designed to make selected operational metrics easier to monitor. It reads values from locally synchronized Excel workbooks, stores current KPI readings in SQLite, and displays balances and historical trends through a Flask web interface.
+The TPA Operations Dashboard is a prototype designed to make selected operational metrics easier to monitor. It reads values from locally synchronized Excel workbooks, stores current KPI readings in SQLite, and displays balances and historical trends through a Flask web interface.
 
 The original prototype was developed for a local Windows environment. This public version is intended to demonstrate the technical approach without exposing employer data.
 
