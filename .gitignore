@@ -1,0 +1,43 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+config.local.*
+secrets.*
+
+# Data and workbooks
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.xls
+*.xlsx
+*.xlsm
+*.xlsb
+*.csv
+*.bak
+*.log
+
+# Local files and exports
+output/
+exports/
+backups/
+*.pdf
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Keep synthetic data explicitly added after review
+!sample_data/
+!sample_data/*.json
