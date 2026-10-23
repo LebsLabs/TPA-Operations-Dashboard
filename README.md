@@ -1,4 +1,4 @@
-# CEO Operations Dashboard
+# TPA Operations Dashboard
 
 **A Python dashboard for monitoring operational KPIs from Excel workbooks and visualizing historical changes.**
 
