@@ -1,4 +1,0 @@
-# Example package names only; replace with versions from a tested, sanitized environment.
-Flask
-openpyxl
-waitress
