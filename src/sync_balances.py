@@ -9,9 +9,9 @@ DATABASE = BASE / 'TPA_Operations.db'
 ROOT = BASE / 'sample_data'
 
 WORKBOOKS = {
-    'Insurance Company A': (ROOT / 'Intranet - Insurance Company A' / 'Insurance Company A.xlsm', 'Insurance Company A', 'Remaining Balance'),
-    'Insurance Company B': (ROOT / 'Intranet - Insurance Company B' / 'Insurance Company B.xlsm', 'Insurance Company B', 'Insurance Company B Remaining Balance'),
-    'Insurance Company C': (ROOT / 'Intranet - Insurance Company C' / 'Insurance Company C.xlsm', 'Insurance Company C', 'Insurance Company C Remaining Balance'),
+    'Insurance Company A': (ROOT / 'Intranet - Insurance Company A' / 'Insurance Company A.xlsx', 'Insurance Company A', 'Remaining Balance'),
+    'Insurance Company B': (ROOT / 'Intranet - Insurance Company B' / 'Insurance Company B.xlsx', 'Insurance Company B', 'Insurance Company B Remaining Balance'),
+    'Insurance Company C': (ROOT / 'Intranet - Insurance Company C' / 'Insurance Company C.xlsx', 'Insurance Company C', 'Insurance Company C Remaining Balance'),
 }
 
 def sync_company(name):
