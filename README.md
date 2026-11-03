@@ -8,7 +8,7 @@ A Python dashboard that reads running balances from Excel workbooks, stores curr
 
 The project began with a department manager's request for email notifications when a running balance fell below a threshold. A dashboard was proposed to provide continuous visibility of balances and their movements across several insurance companies.
 
-The intended internal setup is a small laptop connected to two display screens, allowing the department to monitor balances without repeatedly opening individual Excel workbooks. This screen deployment is a planned use case; the public edition demonstrates the application locally. Email alerts are not implemented in this version.
+The intended internal setup is a small laptop connected to two display screens, allowing the department to monitor balances without repeatedly opening individual Excel workbooks. This screen deployment is a planned use case; the public edition demonstrates the application locally. 
 
 ## Features
 
