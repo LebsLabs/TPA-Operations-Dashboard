@@ -42,8 +42,6 @@ The application scripts are located in `src/`.
 | `watch_balances.py` | Calls synchronization when workbooks change or a periodic check is due |
 | `historical_dashboard.py` | Displays balances and records historical changes observed during API requests |
 
-The demo workbooks are generated under `src/sample_data/`. The database is created at `src/TPA_Operations.db`.
-
 ## Run the fictional demonstration on Windows
 
 Install Python with the Windows `py` launcher available. The instructions below use **Command Prompt** and have been checked through sample generation, synchronization and local dashboard startup on Windows.
