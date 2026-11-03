@@ -119,7 +119,6 @@ A new demonstration initially shows one dot per company. A line requires at leas
 Sample-data generation, synchronization of all three balances and display through Waitress were manually verified on Windows. Automatic monitoring was manually verified by changing a fictional Excel balance from 50,000 to 48,000 and confirming that the dashboard balance and historical chart updated. A complete automated test suite is not included.
 
 <img width="1891" height="934" alt="image" src="https://github.com/user-attachments/assets/c6bab5b3-e9c6-423c-854e-e8994f10690e" />
-
 ## Configuration and limitations
 
 - Workbook paths, worksheet names and KPI mappings are defined in `src/sync_balances.py`. Matching company labels and KPI mappings are used in `src/historical_dashboard.py`.
