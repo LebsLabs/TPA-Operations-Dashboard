@@ -1,96 +1,150 @@
 # TPA Operations Dashboard
 
-**A Python dashboard for monitoring operational KPIs from Excel workbooks and visualizing historical changes.**
+A Python dashboard that reads running balances from Excel workbooks, stores current values and historical observations in SQLite, and displays them through a Flask web interface served by Waitress.
 
-> **Portfolio edition:** The public repository should contain sanitized code and synthetic sample data only. No internal company financial records, workbook paths, credentials, or corporate identifiers.
+**Portfolio edition:** This repository uses anonymized company names and a generator for fictional sample data. Operational workbooks, private paths and real financial records are excluded.
 
-## Overview
+## Why this project was built
 
-The TPA Operations Dashboard is a prototype designed to make selected operational metrics easier to monitor. It reads values from locally synchronized Excel workbooks, stores current KPI readings in SQLite, and displays balances and historical trends through a Flask web interface.
+The project began with a department manager's request for email notifications when a running balance fell below a threshold. A dashboard was proposed to provide continuous visibility of balances and their movements across several insurance companies.
 
-The original prototype was developed for a local Windows environment. This public version is intended to demonstrate the technical approach without exposing employer data.
+The intended internal setup is a small laptop connected to two display screens, allowing the department to monitor balances without repeatedly opening individual Excel workbooks. This screen deployment is a planned use case; the public edition demonstrates the application locally. Email alerts are not implemented in this version.
 
 ## Features
 
-| Feature | Implementation |
-| --- | --- |
-| Excel KPI extraction | `openpyxl` reads selected cells from `.xlsm` files without running macros |
-| Automated monitoring | Python checks workbook changes and retries transient read failures |
-| Current KPI storage | SQLite stores the latest recorded values |
-| Historical visualization | Dashboard displays recorded balance observations over time |
-| Web dashboard | Flask provides the browser interface and API endpoints |
-| Local serving | Waitress can serve the Flask application locally |
-
-## Architecture
-
-```text
-Excel workbooks (read-only access)
-            |
-            v
-     Python monitoring
-            |
-            v
-       SQLite database
-            |
-            v
-        Flask app
-            |
-            v
-   Browser dashboard / chart
-```
+- Displays the latest recorded balance for Insurance Company A, B and C.
+- Reads cell `E4` from each configured Excel worksheet without modifying the workbook.
+- Stores current balances and workbook-check metadata in SQLite.
+- Includes a monitor that checks for file changes, periodically rechecks workbooks and retries unsuccessful reads.
+- Displays historical observations using selectable 7-, 30- and 90-day charts.
+- Refreshes dashboard data every three seconds.
+- Generates three fictional Excel workbooks for an independent local demonstration.
 
 ## Technology stack
 
-- Python
-- Flask
-- SQLite
-- openpyxl
-- Waitress
-- HTML / CSS / JavaScript
+| Technology | Role |
+| --- | --- |
+| Python | Data extraction, monitoring and application logic |
+| openpyxl | Reads saved Excel values and generates sample workbooks |
+| SQLite | Stores current balances, check metadata and historical observations |
+| Flask | Provides the web page and JSON API |
+| Waitress | Serves the Flask application locally |
+| HTML, CSS and JavaScript | Browser layout, automatic refresh and SVG charts |
 
-## Repository status
+## Application files
 
-This README is part of a **GitHub preparation pack**. Add only reviewed, sanitized versions of the real application files. Do not publish this as a runnable release until the configuration has been externalized and the demo tested using synthetic data.
+The application scripts are located in `src/`.
 
-## Local development
+| File | Purpose |
+| --- | --- |
+| `create_sample_data.py` | Creates fictional `.xlsx` workbooks with numeric balances in `E4` |
+| `sync_balances.py` | Validates saved balance values and updates the database |
+| `watch_balances.py` | Calls synchronization when workbooks change or a periodic check is due |
+| `historical_dashboard.py` | Displays balances and records historical changes observed during API requests |
 
-After the sanitized application files and a pinned `requirements.txt` have been added:
+The demo workbooks are generated under `src/sample_data/`. The database is created at `src/TPA_Operations.db`.
 
-```powershell
+## Run the fictional demonstration on Windows
+
+Install Python with the Windows `py` launcher available. The instructions below use **Command Prompt** and have been checked through sample generation, synchronization and local dashboard startup on Windows.
+
+### 1. Prepare the project folder
+
+Download the repository ZIP and extract it into a separate demonstration folder. For the commands below, use:
+
+```text
+%USERPROFILE%\TPA_Dashboard
+```
+
+That folder should directly contain `requirements.txt` and `src`. If you use another location, adjust the `cd` commands accordingly.
+
+### 2. Create an environment and install dependencies
+
+```cmd
+cd /d "%USERPROFILE%\TPA_Dashboard"
 py -m venv .venv
 .venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
-The original prototype runs a local Flask application and a separate Excel monitoring process. The precise commands and demo setup should be documented here after the sanitized code is tested.
+### 3. Generate sample workbooks and synchronize balances
 
-## Security and privacy
+Run these commands once for a fresh demonstration:
 
-- Never commit actual SQLite databases, Excel workbooks, secrets, or real financial balances.
-- Replace internal OneDrive / SharePoint paths with environment-driven configuration or synthetic examples.
-- Remove company-specific names and identifiers from public code, screenshots, logs, and commit history.
-- The prototype has **no built-in user authentication or HTTPS**. Do not expose it to a public network or describe it as production-secure.
-- The public portfolio demo should use synthetic sample data only.
+```cmd
+.venv\Scripts\python.exe src\create_sample_data.py
+.venv\Scripts\python.exe src\sync_balances.py
+```
 
-## What this project demonstrates
+Expected fictional balances:
 
-- Integrating Python with Excel-based workflows
-- Working with SQLite and historical KPI observations
-- Separating data collection from presentation
-- Building a web dashboard with Flask
-- Handling local file synchronization and transient errors
-- Preparing an internal prototype for maintainable, privacy-conscious publication
+| Company | Starting balance |
+| --- | ---: |
+| Insurance Company A | 50,000.00 |
+| Insurance Company B | 75,000.00 |
+| Insurance Company C | 100,000.00 |
 
-## Screenshots
+The generator refuses to overwrite existing sample workbooks. On subsequent launches, keep the existing samples and skip the generation command. It does not generate historical readings.
 
-Add screenshots from a **synthetic-data demonstration** to `screenshots/` after reviewing them for confidential information.
+### 4. Start the dashboard
+
+```cmd
+.venv\Scripts\waitress-serve.exe --listen=127.0.0.1:5002 src.historical_dashboard:app
+```
+
+Keep this window open and visit [http://127.0.0.1:5002/](http://127.0.0.1:5002/).
+
+Port `5002` is used for the demonstration. Binding to `127.0.0.1` makes it accessible only from the same computer.
+
+### 5. Start automatic monitoring
+
+In a second Command Prompt window, run:
+
+```cmd
+cd /d "%USERPROFILE%\TPA_Dashboard"
+.venv\Scripts\python.exe src\watch_balances.py
+```
+
+Keep both windows open while monitoring. To try an update, change `E4` in one of the generated demo workbooks, save it and leave the dashboard open. The monitor is designed to synchronize the new value, after which the next browser request can record a historical observation.
+
+## How historical readings work
+
+The monitor updates the latest balances. Historical observations are recorded separately by the dashboard API when it receives a request and detects a change from the last stored value.
+
+History therefore depends on dashboard requests. Intermediate changes can be missed between requests or while the dashboard is closed. Observation timestamps indicate when the application recorded a value, not when the underlying business transaction occurred.
+
+A new demonstration initially shows one dot per company. A line requires at least two recorded observations. Selecting 90 days changes the viewing window; it does not create older data.
+
+## Validation status
+
+Sample-data generation, synchronization of all three balances and display through Waitress were manually verified on Windows. The end-to-end test of an Excel edit triggering an automatic dashboard update remains pending. A complete automated test suite is not included.
+
+## Configuration and limitations
+
+- Workbook paths, worksheet names and KPI mappings are defined in `src/sync_balances.py`. Matching company labels and KPI mappings are used in `src/historical_dashboard.py`.
+- The demo uses `.xlsx` workbooks. Both scripts must reference the same database file.
+- `.env.example` is a reference template only; the current application does not load its settings.
+- openpyxl reads saved formula results; it does not calculate formulas or execute VBA. Formula-based balances must have numeric cached results saved by Excel.
+- The dashboard does not show source freshness metadata. A connected browser does not establish that a workbook was recently read successfully.
+- Amounts are displayed without currency labels or conversion. Compare balances only when their units are consistent.
+- This prototype has no built-in authentication or HTTPS. The documented setup is intended for local demonstration.
+
+## Stop and back up
+
+Press **Ctrl+C** in both Command Prompt windows to stop Waitress and monitoring.
+
+With both processes stopped, copy `src/TPA_Operations.db` to a separate backup location. This preserves current balances and recorded history. Back up source workbooks separately if needed.
+
+Do not commit private configuration, operational workbooks, databases or logs to the public repository.
 
 ## Future improvements
 
-- Externalized configuration and automated tests
-- Stronger historical data capture independent of the dashboard process
-- Authenticated, HTTPS-enabled deployment in an approved environment
-- Additional KPI metrics and reporting views
+- Record history during synchronization, independently of browser requests.
+- Display the last successful workbook check and flag stale readings.
+- Externalize configuration and add automated integration tests.
+- Introduce authentication and HTTPS for any approved shared deployment.
 
-## License
+## Author and rights
 
-No license has been selected yet. Add one only after confirming that you own the code and are authorized to publish it.
+Author:
+
+© 2026 A Leb. All rights reserved. No open-source license is granted by this README.
