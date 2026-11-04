@@ -48,9 +48,9 @@ These identifiers match `KEYS` in the dashboard. Matching is exact, including sp
 1. Opens the workbook with `read_only=True` and `data_only=True`. Read only=True should only read the file and not change it, while data only=True retrieves only the values and not the formulas from the file.  
 2. Reads E4 from the configured worksheet and closes the workbook in a `finally` block. `try` and `finally` are structured in a way that ensures that the operation ends even if the reading fails.
 3. Rejects boolean values and values that are not Python integers or floats. Accepts floating decimals values `float` and integers `Int`. 
-4. Reads the file modification timestamp and records the successful-check time. 
-5. Creates the two ingestion tables if needed and upserts their records within one transaction per company.
-6. Prints the synchronized value and returns it.
+4. Reads the file modification timestamp and records the successful-check time; `checked_at` Python successfully checks the last successful workbook value and `modified_at` Python checks the last modification time reported. 
+5. After it connects to SQL it creates the two ingestion tables if needed and upserts their records within one transaction per company. One table is CEO_KPIs table and the other table is KPI_Monitor table. 
+6. Prints the synchronized value and returns it. 
 
 `data_only=True` uses a saved formula result when E4 contains a formula. The script neither calculates Excel formulas nor runs macros. A cached result must have been saved by a spreadsheet application. Numeric validation currently does not explicitly reject NaN or infinity.
 
@@ -72,7 +72,7 @@ An unknown company exits with code 2. Caught file, value, key or SQLite errors a
 
 ## 4. Monitoring logic
 
-`watch_balances.py` imports `WORKBOOKS` and `sync_company` from its sibling module. It compares `st_mtime_ns` values to successful previous reads and uses `time.monotonic()` to measure elapsed time.
+`watch_balances.py` imports `WORKBOOKS` and `sync_company` from its sibling module. Watch_balances.py continuously checks the Excel files and decides when to run `sync_balances.py`. 
 
 | Setting | Value | Meaning |
 | --- | ---: | --- |
@@ -83,7 +83,7 @@ The first pass synchronizes available files. Later passes synchronize files whos
 
 Retry state is held in memory, so restarting the process begins a new initial check. There is no exponential backoff, durable queue or operating-system file-event subscription.
 
-## 5. SQLite schema
+## 5. SQLite schema - Read Workbook synchronization
 
 ### `CEO_KPIs`
 
@@ -101,7 +101,9 @@ Retry state is held in memory, so restarting the process begins a new initial ch
 | `Last_Check_At` | TEXT NOT NULL | Most recent successful check |
 | `Workbook_Modified_At` | TEXT NOT NULL | Source file modification time |
 
-### `TPA_Balance_History`
+Synchronization creates the first two tables. A valid history request creates the third when the database exists. No foreign-key relationship, history uniqueness constraint, retention policy or explicit secondary index is defined.
+
+### 3rd Table `TPA_Balance_History`
 
 | Column | Definition | Purpose |
 | --- | --- | --- |
@@ -109,8 +111,6 @@ Retry state is held in memory, so restarting the process begins a new initial ch
 | `Company` | TEXT NOT NULL | Company label |
 | `Balance` | REAL NOT NULL | Observed balance |
 | `Recorded_At` | TEXT NOT NULL | Observation timestamp |
-
-Synchronization creates the first two tables. A valid history request creates the third when the database exists. No foreign-key relationship, history uniqueness constraint, retention policy or explicit secondary index is defined.
 
 Connections use a ten-second SQLite timeout and context-managed transactions. Query values are passed using SQL parameters. REAL storage uses floating-point values and should not be described as exact decimal accounting storage.
 
