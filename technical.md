@@ -85,7 +85,7 @@ Retry state is held in memory, so restarting the process begins a new initial ch
 
 ## 5. SQLite schema - Read Workbook synchronization
 
-### `CEO_KPIs`
+### 1st Table `CEO_KPIs`
 
 | Column | Definition | Purpose |
 | --- | --- | --- |
@@ -93,15 +93,13 @@ Retry state is held in memory, so restarting the process begins a new initial ch
 | `KPI_Value` | REAL NOT NULL | Latest synchronized balance |
 | `Updated_At` | TEXT NOT NULL | Successful synchronization time |
 
-### `KPI_Monitor`
+### 2nd Table `KPI_Monitor`
 
 | Column | Definition | Purpose |
 | --- | --- | --- |
 | `Company` | TEXT PRIMARY KEY | Configured company label |
 | `Last_Check_At` | TEXT NOT NULL | Most recent successful check |
 | `Workbook_Modified_At` | TEXT NOT NULL | Source file modification time |
-
-Synchronization creates the first two tables. A valid history request creates the third when the database exists. No foreign-key relationship, history uniqueness constraint, retention policy or explicit secondary index is defined.
 
 ### 3rd Table `TPA_Balance_History`
 
