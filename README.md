@@ -147,5 +147,6 @@ Do not commit private configuration, operational workbooks, databases or logs to
 ## Author and rights
 
 Author:
+GitHub:
 
-© 2026 A Leb. All rights reserved. No open-source license is granted by this README.
+Project: TPA Operational Dashboard
