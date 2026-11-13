@@ -43,7 +43,7 @@ The generator checks for existing targets and opens output files in exclusive-cr
 
 These identifiers match `KEYS` in the dashboard. Matching is exact, including spaces and punctuation.
 
-`sync_company(name)` performs the following operations (is composed of 6 actions, and represents actually a small ETL pipeline (Export, Transform, Load). 
+`sync_company(name)` performs the following operations (is composed of 6 actions, and represents actually a small ETL pipeline (Extract, Transform, Load). 
 
 1. Opens the workbook with `read_only=True` and `data_only=True`. Read only=True should only read the file and not change it, while data only=True retrieves only the values and not the formulas from the file.  
 2. Reads E4 from the configured worksheet and closes the workbook in a `finally` block. `try` and `finally` are structured in a way that ensures that the operation ends even if the reading fails.
