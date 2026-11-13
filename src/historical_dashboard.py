@@ -6,7 +6,7 @@ from flask import Flask, jsonify, request, render_template_string
 app = Flask(__name__)
 DB = Path(__file__).resolve().parent / 'TPA_Operations.db'
 KEYS = {
-    'Insurance Company A': 'Remaining Balance',
+    'Insurance Company A': 'Insurance Company A Remaining Balance',
     'Insurance Company B': 'Insurance Company B Remaining Balance',
     'Insurance Company C': 'Insurance Company C Remaining Balance',
 }
