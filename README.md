@@ -1,16 +1,14 @@
 # TPA Operations Dashboard
 
-A Python dashboard that reads running balances from Excel workbooks, stores current values and historical observations in SQLite, and displays them through a Flask web interface served by Waitress.
+## 1. Intro 
 
-**Portfolio edition:** This repository uses anonymized company names and a generator for fictional sample data. Operational workbooks, private paths and real financial records are excluded.
+or TPA Dashboard stands for Third Party Administration Dashboard and it is a dashboard written mainly in Python that reads running balances from excel workbooks, store current values in SQLite, and displays them through Flask. Of course, the version of the dashboard that is uploaded in this repository is slightly different from the original as the files are sanitized.  
 
-## Why this project was built
+## 2. Scope of the dashboard
 
-The project began with a department manager's request for email notifications when a running balance fell below a threshold. A dashboard was proposed to provide continuous visibility of balances and their movements across several insurance companies.
+This project is connected to the GOP Generator project (check the ()). In fact, it was requested that the GOP Generator should have an automatic email alert when a running balance falls below a certain threshold. A dashboard was proposed as a solution to provide continuous visibility of balances and their movements across several insurance companies.
 
-The intended internal setup is a small laptop connected to two display screens, allowing the department to monitor balances without repeatedly opening individual Excel workbooks. This screen deployment is a planned use case; the public edition demonstrates the application locally. 
-
-## Features
+## 3. Features
 
 - Displays the latest recorded balance for Insurance Company A, B and C.
 - Reads cell `E4` from each configured Excel worksheet without modifying the workbook.
@@ -20,7 +18,7 @@ The intended internal setup is a small laptop connected to two display screens, 
 - Refreshes dashboard data every three seconds.
 - Generates three fictional Excel workbooks for an independent local demonstration.
 
-## Technology stack
+## 4. Technology stack
 
 | Technology | Role |
 | --- | --- |
@@ -31,7 +29,7 @@ The intended internal setup is a small laptop connected to two display screens, 
 | Waitress | Serves the Flask application locally |
 | HTML, CSS and JavaScript | Browser layout, automatic refresh and SVG charts |
 
-## Application files
+## 5. Application files
 
 The application scripts are located in `src/`.
 
@@ -44,7 +42,7 @@ The application scripts are located in `src/`.
 
 After downloading and extracting the ZIP, run create_sample_data.py to generate the demo workbooks in src/sample_data/. Then run sync_balances.py to create the database at src/TPA_Operations.db.
 
-## Run the fictional demonstration on Windows
+## 6. Run the fictional demonstration on Windows
 
 Install Python with the Windows `py` launcher available. The instructions below use **Command Prompt** and have been checked through sample generation, synchronization and local dashboard startup on Windows.
 
