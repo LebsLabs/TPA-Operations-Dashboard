@@ -8,7 +8,7 @@ or TPA Dashboard stands for Third Party Administration Dashboard and it is a das
 
 This project is connected to the GOP Generator project (check the ()). In fact, it was requested that the GOP Generator should have an automatic email alert when a running balance falls below a certain threshold. A dashboard was proposed as a solution to provide continuous visibility of balances and their movements across several insurance companies.
 
-## 3. Features
+## 3. How does it work
 
 - Displays the latest recorded balance for Insurance Company A, B and C.
 - Reads cell `E4` from each configured Excel worksheet without modifying the workbook.
