@@ -46,7 +46,7 @@ After downloading and extracting the ZIP, run create_sample_data.py to generate 
 
 Install Python with the Windows `py` launcher available. The instructions below use **Command Prompt** and have been checked through sample generation, synchronization and local dashboard startup on Windows.
 
-### 1. Prepare the project folder
+### a) Prepare the project folder
 
 Download the repository ZIP and extract it into a separate demonstration folder. For the commands below, use:
 
@@ -56,7 +56,7 @@ Download the repository ZIP and extract it into a separate demonstration folder.
 
 That folder should directly contain `requirements.txt` and `src`. If you use another location, adjust the `cd` commands accordingly.
 
-### 2. Create an environment and install dependencies
+### b) Create an environment and install dependencies
 
 ```cmd
 cd /d "%USERPROFILE%\TPA_Dashboard"
@@ -64,7 +64,7 @@ py -m venv .venv
 .venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
-### 3. Generate sample workbooks and synchronize balances
+### c) Generate sample workbooks and synchronize balances
 
 Run these commands once for a fresh demonstration:
 
@@ -83,7 +83,7 @@ Expected fictional balances:
 
 The generator refuses to overwrite existing sample workbooks. On subsequent launches, keep the existing samples and skip the generation command. It does not generate historical readings.
 
-### 4. Start the dashboard
+### d) Start the dashboard
 
 ```cmd
 .venv\Scripts\waitress-serve.exe --listen=127.0.0.1:5002 src.historical_dashboard:app
@@ -104,7 +104,7 @@ cd /d "%USERPROFILE%\TPA_Dashboard"
 
 Keep both windows open while monitoring. To try an update, change `E4` in one of the generated demo workbooks, save it and leave the dashboard open. The monitor is designed to synchronize the new value, after which the next browser request can record a historical observation.
 
-## How historical readings work
+## 7. How historical readings work
 
 The monitor updates the latest balances. Historical observations are recorded separately by the dashboard API when it receives a request and detects a change from the last stored value.
 
@@ -112,12 +112,12 @@ History therefore depends on dashboard requests. Intermediate changes can be mis
 
 A new demonstration initially shows one dot per company. A line requires at least two recorded observations. Selecting 90 days changes the viewing window; it does not create older data.
 
-## Validation status
+## 8. Validation status
 
 Sample-data generation, synchronization of all three balances and display through Waitress were manually verified on Windows. Automatic monitoring was manually verified by changing a fictional Excel balance from 50,000 to 48,000 and confirming that the dashboard balance and historical chart updated. A complete automated test suite is not included.
 
 <img width="1891" height="934" alt="image" src="https://github.com/user-attachments/assets/c6bab5b3-e9c6-423c-854e-e8994f10690e" />
-## Configuration and limitations
+## 9. Configuration and limitations
 
 - Workbook paths, worksheet names and KPI mappings are defined in `src/sync_balances.py`. Matching company labels and KPI mappings are used in `src/historical_dashboard.py`.
 - The demo uses `.xlsx` workbooks. Both scripts must reference the same database file.
@@ -127,7 +127,7 @@ Sample-data generation, synchronization of all three balances and display throug
 - Amounts are displayed without currency labels or conversion. Compare balances only when their units are consistent.
 - This prototype has no built-in authentication or HTTPS. The documented setup is intended for local demonstration.
 
-## Stop and back up
+## 10. Stop and back up
 
 Press **Ctrl+C** in both Command Prompt windows to stop Waitress and monitoring.
 
@@ -135,16 +135,10 @@ With both processes stopped, copy `src/TPA_Operations.db` to a separate backup l
 
 Do not commit private configuration, operational workbooks, databases or logs to the public repository.
 
-## Future improvements
+## 11. Future improvements
 
 - Record history during synchronization, independently of browser requests.
 - Display the last successful workbook check and flag stale readings.
 - Externalize configuration and add automated integration tests.
 - Introduce authentication and HTTPS for any approved shared deployment.
-
-## Author and rights
-
-Author:
-GitHub:
-
 Project: TPA Operational Dashboard
