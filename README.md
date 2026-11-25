@@ -10,13 +10,8 @@ This project is connected to the GOP Generator project [GOP Generator](https://g
 
 ## 3. How does it work
 
-- Displays the latest recorded balance for Insurance Company A, B and C.
-- Reads cell `E4` from each configured Excel worksheet without modifying the workbook.
-- Stores current balances and workbook-check metadata in SQLite.
-- Includes a monitor that checks for file changes, periodically rechecks workbooks and retries unsuccessful reads.
-- Displays historical observations using selectable 7-, 30- and 90-day charts.
-- Refreshes dashboard data every three seconds.
-- Generates three fictional Excel workbooks for an independent local demonstration.
+Through Python and storing data and workbook-check metadata into .db file it reads latest recorded balance for Insurance Company A, B in cell `E4` from each configured Excel worksheet.
+Periodically it rechecks workbooks and retries unsuccessful reads, then it displays selectable 7-, 30- and 90- day charts through a browser - see Dashboard in the picture here below: 
 
 <img width="1891" height="934" alt="image" src="https://github.com/user-attachments/assets/c6bab5b3-e9c6-423c-854e-e8994f10690e" />
 
