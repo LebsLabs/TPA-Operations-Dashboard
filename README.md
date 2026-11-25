@@ -65,7 +65,7 @@ Keep this window open and visit [http://127.0.0.1:5002/](http://127.0.0.1:5002/)
 
 Port `5002` is used for the demonstration. Binding to `127.0.0.1` makes it accessible only from the same computer.
 
-### 5. Start automatic monitoring
+### e) Start automatic monitoring
 
 In a second Command Prompt window, run:
 
