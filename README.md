@@ -76,31 +76,13 @@ cd /d "%USERPROFILE%\TPA_Dashboard"
 
 Keep both windows open while monitoring. To try an update, change `E4` in one of the generated demo workbooks, save it and leave the dashboard open. The monitor is designed to synchronize the new value, after which the next browser request can record a historical observation.
 
-## 8. Validation status
+## e) Stop and back up
 
-Sample-data generation, synchronization of all three balances and display through Waitress were manually verified on Windows. Automatic monitoring was manually verified by changing a fictional Excel balance from 50,000 to 48,000 and confirming that the dashboard balance and historical chart updated.
+Press **Ctrl+C** in both Command Prompt windows to stop Waitress and monitoring. With both processes stopped, copy `src/TPA_Operations.db` to a separate backup location. This preserves current balances and recorded history. 
 
-## 9. Configuration and limitations
-
-- Workbook paths, worksheet names and KPI mappings are defined in `src/sync_balances.py`. Matching company labels and KPI mappings are used in `src/historical_dashboard.py`.
-- The demo uses `.xlsx` workbooks. Both scripts must reference the same database file.
-- `.env.example` is a reference template only; the current application does not load its settings.
-- openpyxl reads saved formula results; it does not calculate formulas or execute VBA. Formula-based balances must have numeric cached results saved by Excel.
-- The dashboard does not show source freshness metadata. A connected browser does not establish that a workbook was recently read successfully.
-- Amounts are displayed without currency labels or conversion. Compare balances only when their units are consistent.
-- This prototype has no built-in authentication or HTTPS. The documented setup is intended for local demonstration.
-
-## 10. Stop and back up
-
-Press **Ctrl+C** in both Command Prompt windows to stop Waitress and monitoring.
-With both processes stopped, copy `src/TPA_Operations.db` to a separate backup location. This preserves current balances and recorded history. Back up source workbooks separately if needed.
-Do not commit private configuration, operational workbooks, databases or logs to the public repository.
-
-## 11. Future improvements
+## 5. Future improvements
 
 - Record history during synchronization, independently of browser requests.
 - Display the last successful workbook check and flag stale readings.
 - Externalize configuration and add automated integration tests.
 - Introduce authentication and HTTPS for any approved shared deployment.
-
-Project: TPA Operational Dashboard
