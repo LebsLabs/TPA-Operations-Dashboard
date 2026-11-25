@@ -6,7 +6,7 @@ or TPA Dashboard stands for Third Party Administration Dashboard and it is a das
 
 ## 2. Scope of the dashboard
 
-This project is connected to the GOP Generator project (check the ()). In fact, it was requested that the GOP Generator should have an automatic email alert when a running balance falls below a certain threshold. A dashboard was proposed as a solution to provide continuous visibility of balances and their movements across several insurance companies.
+This project is connected to the GOP Generator project [GOP Generator](https://github.com/LebsLabs/GOP-Generator). In fact, it was requested that the GOP Generator should have an automatic email alert when a running balance falls below a certain threshold. A dashboard was proposed as a solution to provide continuous visibility of balances and their movements across several insurance companies.
 
 ## 3. How does it work
 
