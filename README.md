@@ -78,7 +78,7 @@ Keep both windows open while monitoring. To try an update, change `E4` in one of
 
 ## 8. Validation status
 
-Sample-data generation, synchronization of all three balances and display through Waitress were manually verified on Windows. Automatic monitoring was manually verified by changing a fictional Excel balance from 50,000 to 48,000 and confirming that the dashboard balance and historical chart updated. A complete automated test suite is not included.
+Sample-data generation, synchronization of all three balances and display through Waitress were manually verified on Windows. Automatic monitoring was manually verified by changing a fictional Excel balance from 50,000 to 48,000 and confirming that the dashboard balance and historical chart updated.
 
 ## 9. Configuration and limitations
 
@@ -93,9 +93,7 @@ Sample-data generation, synchronization of all three balances and display throug
 ## 10. Stop and back up
 
 Press **Ctrl+C** in both Command Prompt windows to stop Waitress and monitoring.
-
 With both processes stopped, copy `src/TPA_Operations.db` to a separate backup location. This preserves current balances and recorded history. Back up source workbooks separately if needed.
-
 Do not commit private configuration, operational workbooks, databases or logs to the public repository.
 
 ## 11. Future improvements
@@ -104,4 +102,5 @@ Do not commit private configuration, operational workbooks, databases or logs to
 - Display the last successful workbook check and flag stale readings.
 - Externalize configuration and add automated integration tests.
 - Introduce authentication and HTTPS for any approved shared deployment.
+
 Project: TPA Operational Dashboard
