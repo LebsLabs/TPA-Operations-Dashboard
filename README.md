@@ -10,8 +10,7 @@ This project is connected to the GOP Generator project [GOP Generator](https://g
 
 ## 3. How does it work
 
-Through Python and storing data and workbook-check metadata into .db file it reads latest recorded balance for Insurance Company A, B in cell `E4` from each configured Excel worksheet.
-Periodically it rechecks workbooks and retries unsuccessful reads, then it displays selectable 7-, 30- and 90- day charts through a browser - see Dashboard in the picture here below: 
+Using Python, the application reads the latest recorded balances for Insurance Companies A and B from cell `E4` in each configured Excel worksheet, storing the data and workbook-check metadata in a `.db` file. It periodically rechecks the workbooks and retries unsuccessful reads. It then displays selectable 7-, 30-, and 90-day charts through a web browser — see the dashboard in the picture below:
 
 <img width="1891" height="934" alt="image" src="https://github.com/user-attachments/assets/c6bab5b3-e9c6-423c-854e-e8994f10690e" />
 
