@@ -2,15 +2,15 @@
 
 ## 1. Intro 
 
-or TPA Dashboard stands for Third Party Administration Dashboard and it is a dashboard written mainly in Python that reads running balances from excel workbooks, store current values in SQLite, and displays them through Flask. Of course, the version of the dashboard that is uploaded in this repository is slightly different from the original as the files are sanitized.  
+TPA Dashboard stands for Third Party Administration Dashboard and it is a dashboard written mainly in Python that reads running balances from excel workbooks, store current values in SQLite, and displays them through Flask. Of course, the version of the dashboard that is uploaded in this repository is slightly different from the original as the files are sanitized.  
 
 ## 2. Scope of the dashboard
 
-This project is connected to the GOP Generator project [GOP Generator](https://github.com/LebsLabs/GOP-Generator). In fact, it was requested that the GOP Generator should have an automatic email alert when a running balance falls below a certain threshold. A dashboard was proposed as a solution to provide continuous visibility of balances and their movements across several insurance companies.
+This project is connected to the GOP Generator project [GOP Generator](https://github.com/LebsLabs/GOP-Generator). In fact, it was originally requested that the GOP Generator should have an automatic email alert when a running balance falls below a certain threshold - This was not implemented. A dashboard was proposed as a solution to provide continuous visibility of balances and their movements across several insurance companies.
 
-## 3. How does it work
+## 3. How It Works
 
-Using Python, the application reads the latest recorded balances for Insurance Companies A and B from cell `E4` in each configured Excel worksheet, storing the data and workbook-check metadata in a `.db` file. It periodically rechecks the workbooks and retries unsuccessful reads. It then displays selectable 7-, 30-, and 90-day charts through a web browser — see the dashboard in the picture below:
+Using Python, the application reads the latest recorded balances for Insurance Companies A, B and C from cell `E4` in each configured Excel worksheet, storing the data and workbook-check metadata in a `.db` file. It periodically rechecks the workbooks and retries unsuccessful reads. It then displays selectable 7-, 30-, and 90-day charts through a web browser — see the dashboard in the picture below:
 
 <img width="1891" height="934" alt="image" src="https://github.com/user-attachments/assets/c6bab5b3-e9c6-423c-854e-e8994f10690e" />
 
@@ -76,7 +76,7 @@ cd /d "%USERPROFILE%\TPA_Dashboard"
 
 Keep both windows open while monitoring. To try an update, change `E4` in one of the generated demo workbooks, save it and leave the dashboard open. The monitor is designed to synchronize the new value, after which the next browser request can record a historical observation.
 
-## e) Stop and back up
+## f) Stop and back up
 
 Press **Ctrl+C** in both Command Prompt windows to stop Waitress and monitoring. With both processes stopped, copy `src/TPA_Operations.db` to a separate backup location. This preserves current balances and recorded history. 
 
