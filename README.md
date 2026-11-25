@@ -82,7 +82,7 @@ Press **Ctrl+C** in both Command Prompt windows to stop Waitress and monitoring.
 
 ## 5. Future improvements
 
-- Record history during synchronization, independently of browser requests.
-- Display the last successful workbook check and flag stale readings.
-- Externalize configuration and add automated integration tests.
-- Introduce authentication and HTTPS for any approved shared deployment.
+- Add more KPIs to the Dashboard.
+- Set it up as a Windows Service with restart scheduled once a day, at the beginning of the day.
+- set up Ports for internal company's browsing.
+- Display it on a monitor with a plug-in for browser tabs to rotate. 
