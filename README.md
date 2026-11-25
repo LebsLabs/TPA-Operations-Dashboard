@@ -14,31 +14,7 @@ Using Python, the application reads the latest recorded balances for Insurance C
 
 <img width="1891" height="934" alt="image" src="https://github.com/user-attachments/assets/c6bab5b3-e9c6-423c-854e-e8994f10690e" />
 
-## 4. Technology stack
-
-| Technology | Role |
-| --- | --- |
-| Python | Data extraction, monitoring and application logic |
-| openpyxl | Reads saved Excel values and generates sample workbooks |
-| SQLite | Stores current balances, check metadata and historical observations |
-| Flask | Provides the web page and JSON API |
-| Waitress | Serves the Flask application locally |
-| HTML, CSS and JavaScript | Browser layout, automatic refresh and SVG charts |
-
-## 5. Application files
-
-The application scripts are located in `src/`.
-
-| File | Purpose |
-| --- | --- |
-| `create_sample_data.py` | Creates fictional `.xlsx` workbooks with numeric balances in `E4` |
-| `sync_balances.py` | Validates saved balance values and updates the database |
-| `watch_balances.py` | Calls synchronization when workbooks change or a periodic check is due |
-| `historical_dashboard.py` | Displays balances and records historical changes observed during API requests |
-
-After downloading and extracting the ZIP, run create_sample_data.py to generate the demo workbooks in src/sample_data/. Then run sync_balances.py to create the database at src/TPA_Operations.db.
-
-## 6. Run the fictional demonstration on Windows
+## 4. Run the fictional demonstration on Windows
 
 Install Python with the Windows `py` launcher available. The instructions below use **Command Prompt** and have been checked through sample generation, synchronization and local dashboard startup on Windows.
 
@@ -99,14 +75,6 @@ cd /d "%USERPROFILE%\TPA_Dashboard"
 ```
 
 Keep both windows open while monitoring. To try an update, change `E4` in one of the generated demo workbooks, save it and leave the dashboard open. The monitor is designed to synchronize the new value, after which the next browser request can record a historical observation.
-
-## 7. How historical readings work
-
-The monitor updates the latest balances. Historical observations are recorded separately by the dashboard API when it receives a request and detects a change from the last stored value.
-
-History therefore depends on dashboard requests. Intermediate changes can be missed between requests or while the dashboard is closed. Observation timestamps indicate when the application recorded a value, not when the underlying business transaction occurred.
-
-A new demonstration initially shows one dot per company. A line requires at least two recorded observations. Selecting 90 days changes the viewing window; it does not create older data.
 
 ## 8. Validation status
 
